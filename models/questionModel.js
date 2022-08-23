@@ -2,11 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const quizSchema = new Schema({
-    category: {
-        type: String,
-        required: true,
-    },
+const questionSchema = new Schema({
     question: {
         type:String,
         required: true,
@@ -24,4 +20,4 @@ const quizSchema = new Schema({
 { timestamps: true}
 );
 
-module.exports = mongoose.model("Quiz", quizSchema);        
+module.exports = mongoose.model("Question", questionSchema);        
