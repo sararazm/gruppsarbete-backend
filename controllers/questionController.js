@@ -2,12 +2,20 @@ const Question = require("../models/questionModel");
 
 // create question
 const createQuestion = async (req, res) => {
-  const { question, correctAswer, incorrectAnswer } = req.body;
+  const { question, correctAnswer, incorrectAnswer } = req.body;
 
-  try {
-    const question = await Question.createNew(question, correctAnswer, incorrectAnswer);
-    res.status(200).json({question})
     
+  try {
+    const newQuestion = new Question({
+        question,
+        correctAnswer,
+        incorrectAnswer
+    });
+    newQuestion.save();
+    
+
+    res.status(200).json({newQuestion})
+
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
