@@ -15,12 +15,14 @@ app.use((req, res, next) => {
 app.use("/user", userRoutes);
 app.use("/quiz", quizRoutes)
 
+
+const port = 3030 || process.env.PORT;
 //database-connection
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log("Server listening on port:", process.env.PORT);
+    app.listen(port, () => {
+      console.log("Server listening on port:", port);
     });
   })
   .catch((error) => {

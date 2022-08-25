@@ -16,13 +16,14 @@ const questionSchema = new Schema(
     question: {
       type: String,
       required: true,
+      unique: true,
     },
     correctAnswer: {
       type: String,
       required: true,
     },
     incorrectAnswer: {
-      type: [],
+      type: String,
       required: true,
     },
     createdBy: {
