@@ -13,10 +13,9 @@ const questionSchema = new Schema(
     difficulty: {
       type: String,
     },
-    question: {
+    title: {
       type: String,
       required: true,
-      unique: true,
     },
     correctAnswer: {
       type: String,
