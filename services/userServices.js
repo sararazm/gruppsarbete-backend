@@ -51,7 +51,7 @@ const allUsersLogic = () => {
     const users = User.find({});
 
     if (!users) {
-      return res.status(404).json({ error: "No users found" });
+      return error;
     }
     return users;
   } catch (error) {
@@ -61,10 +61,7 @@ const allUsersLogic = () => {
 
 //get one user logic
 const oneUserLogic = async (id) => {
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "User with given ID does not exist" });
-  }
-
+ 
   try {
     const oneUser = await User.findById(id);
 

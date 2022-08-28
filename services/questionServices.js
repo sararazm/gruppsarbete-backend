@@ -18,6 +18,7 @@ const createQuestionLogic = (question) => {
     if (!incorrectAnswer) {
       return "You can't leave incorrect empty";
     }
+   
 
     newQuestion.save();
     return newQuestion;

@@ -53,9 +53,12 @@ router.post("/signin", userSignIn);
 //GET ALL USERS
 const allUsers = async (req, res) => {
   const users = await allUsersLogic();
+  
   if (users) res.status(200).json({ users });
   else {
-    res.status(400).json(error);
+    return res
+      .status(400)
+      .json("No users found");
   }
 };
 router.get("/", allUsers);

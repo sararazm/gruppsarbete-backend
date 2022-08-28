@@ -54,7 +54,7 @@ const updateQuestion = async (req, res) => {
 
   const question = await updateQuestionLogic(id, req.body);
   if (id) {
-    return res.status(200).json(question);
+    return res.status(200).json({message: `Question was successfully updated, ${question}`});
   } else {
     return res.status(400).json({ error: "Could not update question" });
   }
