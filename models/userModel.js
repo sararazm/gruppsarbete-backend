@@ -19,8 +19,8 @@ const userSchema = new Schema(
       required: true,
     },
     forumposts: {
-      type: [],
-      default: '',
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Forumpost",
     },
     quizpoints: {
       type: Number,
