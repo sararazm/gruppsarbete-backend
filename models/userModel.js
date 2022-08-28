@@ -19,8 +19,8 @@ const userSchema = new Schema(
       required: true,
     },
     forumposts: {
-      type: [],
-      default: '',
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Forumpost",
     },
     quizpoints: {
       type: Number,
@@ -31,9 +31,9 @@ const userSchema = new Schema(
 );
 
 // Static method to sign up user
-userSchema.statics.signingUp = async function (email, password, username) {
+userSchema.statics.signingUp = async function (email, username, password) {
   //if the user leaves either email, username or password empty we throw an Error
-  if (!email || !password || !username) {
+  if (!email || !password || !username ) {
     throw Error("You can not leave any fields empty");
   }
       /*
@@ -58,5 +58,25 @@ userSchema.statics.signingUp = async function (email, password, username) {
    const user = await this.create({ email, username, password: hashed });
   return user;
 };
+
+userSchema.statics.signingIn = async function (email, password) {
+  if (!email || !password ) {
+    throw Error("You can not leave any fields empty");
+  }
+
+  const user = await this.findOne({ email});
+
+  if(!user) {
+    throw Error ("No user found with this email")
+  }
+
+  // compare the password with the one given by registration
+  const match = await bcrypt.compare(password, user.password)
+  if(!match){
+    throw Error("Incorrect password. Try again")
+  }
+
+  return user;
+}
 
 module.exports = mongoose.model("User", userSchema);

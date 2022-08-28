@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
-
-const questionSchema = new Schema(
+const questionSchema = new mongoose.Schema(
   {
     category: {
       type: String,
@@ -13,10 +11,9 @@ const questionSchema = new Schema(
     difficulty: {
       type: String,
     },
-    question: {
+    title: {
       type: String,
       required: true,
-      unique: true,
     },
     correctAnswer: {
       type: String,
@@ -27,7 +24,8 @@ const questionSchema = new Schema(
       required: true,
     },
     createdBy: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
   },
   { timestamps: true }

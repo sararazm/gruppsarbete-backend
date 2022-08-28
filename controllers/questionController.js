@@ -1,12 +1,15 @@
+const express = require("express");
 const Question = require("../models/questionModel");
 const {
   createQuestionLogic,
   oneQuestionLogic,
   updateQuestionLogic,
   deleteQuestionLogic,
+  allQuestionsLogic,
 } = require("../services/questionServices");
+const router = express.Router();
 
-// create question
+// CREATE QUESTION
 const createQuestion = async (req, res) => {
   const newQuestion = await createQuestionLogic(req.body);
   console.log(newQuestion);
@@ -17,15 +20,20 @@ const createQuestion = async (req, res) => {
     return res.status(400).json(newQuestion);
   }
 };
+router.post("/newquestion", createQuestion);
 
-// get/read all questions
+// GET /READ ALL QUESTIONS
 const allQuestions = async (req, res) => {
-  const questions = await Question.find({});
-
-  res.status(200).json({ questions });
+  const questions = await allQuestionsLogic();
+  if (questions) {
+    res.status(200).json({ questions });
+  } else {
+    res.status(400).json(error);
+  }
 };
+router.get("/", allQuestions);
 
-//get /read one question
+// GET / READ ONE QUESTION BY ID
 const oneQuestion = async (req, res) => {
   const { id } = req.params;
 
@@ -33,36 +41,38 @@ const oneQuestion = async (req, res) => {
   if (question._id) {
     return res.status(200).json({ question });
   } else {
-    return res.status(400).json({ error: "can not find the question" });
+    return res
+      .status(400)
+      .json({ error: "Can not find a question with matching ID" });
   }
 };
+router.get("/:id", oneQuestion);
 
-//update one question
+// UPDATE ONE QUESTION BY ID
 const updateQuestion = async (req, res) => {
   const { id } = req.params;
 
-  
-  const question = await updateQuestionLogic(id, req.body)
-  if(question._id) {
-    return res.status(200).json({question});
+  const question = await updateQuestionLogic(id, req.body);
+  if (id) {
+    return res.status(200).json(question);
   } else {
-    return res.status(500).json({error: "could not update question"})
+    return res.status(400).json({ error: "Could not update question" });
   }
 };
+router.patch("/:id", updateQuestion);
 
-
-
-// delete one question
+// DELETE ONE QUESTION
 const deleteQuestion = async (req, res) => {
   const { id } = req.params;
 
- const question = await deleteQuestionLogic(id)
- if(question._id) {
-  return res.status(201).json("Question successfully deleted");
- }else {
-  return res.status(500).json({error: "colud not delete question"})
- }
+  const question = await deleteQuestionLogic(id);
+  if (question.id) {
+    return res.status(201).json("Question successfully deleted");
+  } else {
+    return res.status(400).json({ error: "Could not find the id" });
+  }
 };
+router.delete("/:id", deleteQuestion);
 
 module.exports = {
   createQuestion,
@@ -70,4 +80,5 @@ module.exports = {
   oneQuestion,
   updateQuestion,
   deleteQuestion,
+  router,
 };

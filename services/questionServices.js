@@ -1,10 +1,24 @@
+const mongoose = require("mongoose");
 const Question = require("../models/questionModel");
 
 const createQuestionLogic = (question) => {
+  const { title, correctAnswer, incorrectAnswer } = question;
+
   try {
     const newQuestion = new Question({
       ...question,
     });
+
+    if (!title) {
+      return "You can't leave title empty";
+    }
+    if (!correctAnswer) {
+      return "You can't leave correct empty";
+    }
+    if (!incorrectAnswer) {
+      return "You can't leave incorrect empty";
+    }
+
     newQuestion.save();
     return newQuestion;
   } catch (error) {
@@ -12,9 +26,30 @@ const createQuestionLogic = (question) => {
   }
 };
 
-const oneQuestionLogic = (id) => {
+const allQuestionsLogic = () => {
+  try{
+    const questions = Question.find({});
+    if(!questions) {
+      return res.status(400).json({error: "No questions found"})
+    }
+    return questions
+  } catch(error){
+    return error
+  }
+};
+
+const oneQuestionLogic = async (id) => {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res
+      .status(400)
+      .json({ error: "Question with given ID does not exist" });
+  }
+
   try {
-    const oneQuestion = Question.findById(id);
+    const oneQuestion = await Question.findById(id);
+    if (!oneQuestion) {
+      return error;
+    }
     return oneQuestion;
   } catch (error) {
     return error;
@@ -22,10 +57,18 @@ const oneQuestionLogic = (id) => {
 };
 
 const updateQuestionLogic = (id, body) => {
-  console.log(id)
-  console.log("body:", body)
-    try {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res
+      .status(400)
+      .json({ error: "Question with given ID does not exist" });
+  }
+
+  try {
     const question = Question.findOneAndUpdate({ _id: id }, { ...body });
+
+    if(!question) {
+      return error;
+    }
     return question;
   } catch (error) {
     return error;
@@ -33,8 +76,18 @@ const updateQuestionLogic = (id, body) => {
 };
 
 const deleteQuestionLogic = (id) => {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res
+      .status(400)
+      .json({ error: "Question with given ID does not exist" });
+  }
+
   try {
     const question = Question.findByIdAndDelete({ _id: id });
+
+    if (!question) {
+      return error;
+    }
     return question;
   } catch (error) {
     return error;
@@ -43,8 +96,8 @@ const deleteQuestionLogic = (id) => {
 
 module.exports = {
   createQuestionLogic,
-
+  allQuestionsLogic,
   oneQuestionLogic,
   updateQuestionLogic,
-  deleteQuestionLogic
+  deleteQuestionLogic,
 };
