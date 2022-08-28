@@ -1,13 +1,50 @@
 const mongoose = require("mongoose");
-const User = require("../models/userModel");
+const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 
+const User = require("../models/userModel");
+const createToken = (_id) => {
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "2d" });
+};
 // create user logic
 const createUserLogic = () => {};
 
 
-// sign in user logic
-const userSignInLogic=()=> {};
+/*sign in user logic
+const userSignInLogic= async (email, password)=> {
+ try{ 
+  if(!email) {
+    throw Error("You can't leave email empty")
+  }
+  if(!password) {
+    throw Error("You need to type in a password")
+  }
 
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw Error("Incorrect email");
+  }
+  
+  /*
+  const username = await User.findOne({ username });
+  if(!username){
+    throw Error("Incorrect username")
+  };
+
+    // conmparing the typed in password to the hashed, saved, password 
+  const match = await bcrypt.compare(password, user.password)
+  if(!match){
+    throw Error("Incorrect password. Try again or reset password")
+  }
+  const token = createToken(user._id)
+  
+  return user, token
+ } catch (error) {
+    return error;
+ }
+};
+*/
 // get all users logic
 const allUsersLogic = () => {
   try {
@@ -75,7 +112,7 @@ const deleteUserLogic = (id) => {
 
 module.exports = {
   createUserLogic,
-  userSignInLogic,
+  //userSignInLogic,
   allUsersLogic,
   oneUserLogic,
   updateUserLogic,

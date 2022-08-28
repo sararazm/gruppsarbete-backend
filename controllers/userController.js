@@ -1,7 +1,10 @@
 const express = require("express");
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+
 const {
+  userSignInLogic,
   oneUserLogic,
   deleteUserLogic,
   allUsersLogic,
@@ -30,9 +33,22 @@ router.post("/signup", userSignUp);
 
 // LOGIN USER
 const userSignIn = async (req, res) => {
-  const user = await userSignInLogic(id);
+  const {email, password} =  req.body;
+
+  try {
+    const user = await User.signingIn(email, password);
+
+    //create a JWT based on the user _id
+    const token = createToken(user._id)
+
+    res.status(200).json({message: `The user ${user.email}, successfully signed in`});
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+
 };
 router.post("/signin", userSignIn);
+
 
 //GET ALL USERS
 const allUsers = async (req, res) => {
