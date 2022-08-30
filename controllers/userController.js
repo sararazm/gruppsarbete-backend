@@ -45,7 +45,6 @@ const userSignIn = async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-
 };
 router.post("/signin", userSignIn);
 
@@ -86,7 +85,7 @@ const updateUser = async (req, res) => {
   const user = await updateUserLogic(id, req.body);
 
   if (id) {
-    return res.status(200).json(user);
+    return res.status(200).json(`User with id: ${user.id} updated`);
   } else {
     return res
       .status(400)
