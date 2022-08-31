@@ -13,7 +13,6 @@ const forumSchema = new mongoose.Schema(
     writtenBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
     },
     comments: [{
       type: mongoose.Schema.Types.ObjectId,

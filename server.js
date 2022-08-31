@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const {router: userRoutes} = require("./controllers/userController");
 const { router: quizRoutes} = require("./controllers/questionController");
+const { router: forumRoutes} = require("./controllers/forumpostController")
 const cors = require("cors");
 
 const app = express();
@@ -15,8 +16,9 @@ app.use((req, res, next) => {
 });
 
 // gets specified routes from routes-folder
-app.use("/user", userRoutes);
-app.use("/quiz", quizRoutes)
+app.use("/api/user", userRoutes);
+app.use("/api/quiz", quizRoutes);
+app.use("/api/forum", forumRoutes);
 
 
 const port =  process.env.PORT || 8080;
