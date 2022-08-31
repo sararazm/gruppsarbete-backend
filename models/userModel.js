@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-const Schema = mongoose.Schema;
 
-const userSchema = new Schema(
+const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -18,17 +17,26 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    forumposts: {
+    forumposts: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Forumpost",
-    },
-    quizpoints: {
+    }],
+    forumcomments:[{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+    }],
+    pointsTotal: {
       type: Number,
-      default: null,
+      default: 0,
     },
+    gamesPlayed :{
+      type: Number,
+    }
   },
   { timestamps: true }
 );
+
+
 
 // Static method to sign up user
 userSchema.statics.signingUp = async function (email, username, password) {

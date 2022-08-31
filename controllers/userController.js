@@ -45,7 +45,6 @@ const userSignIn = async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-
 };
 router.post("/signin", userSignIn);
 
@@ -53,9 +52,12 @@ router.post("/signin", userSignIn);
 //GET ALL USERS
 const allUsers = async (req, res) => {
   const users = await allUsersLogic();
+  
   if (users) res.status(200).json({ users });
   else {
-    res.status(400).json(error);
+    return res
+      .status(400)
+      .json("No users found");
   }
 };
 router.get("/", allUsers);
@@ -83,7 +85,7 @@ const updateUser = async (req, res) => {
   const user = await updateUserLogic(id, req.body);
 
   if (id) {
-    return res.status(200).json(user);
+    return res.status(200).json(`User with id: ${user.id} updated`);
   } else {
     return res
       .status(400)

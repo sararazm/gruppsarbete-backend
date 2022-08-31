@@ -5,7 +5,7 @@ const scoreSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    score: {
+    points: {
         type: Number,
         required: true,
     },

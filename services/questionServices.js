@@ -18,6 +18,7 @@ const createQuestionLogic = (question) => {
     if (!incorrectAnswer) {
       return "You can't leave incorrect empty";
     }
+   
 
     newQuestion.save();
     return newQuestion;
@@ -64,7 +65,7 @@ const updateQuestionLogic = (id, body) => {
   }
 
   try {
-    const question = Question.findOneAndUpdate({ _id: id }, { ...body });
+    const question = Question.findByIdAndUpdate({ _id: id }, { ...body });
 
     if(!question) {
       return error;
