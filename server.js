@@ -28,3 +28,8 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+
+app.get('/', (req, res) => {
+  console.log("Hello docker!")
+  res.send("Hello docker!")
+  })
