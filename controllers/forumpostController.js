@@ -1,5 +1,4 @@
 const express = require("express");
-const { findById } = require("../models/forumModel");
 //const Forumpost = require("../models/forumModel");
 const {
   createForumPostLogic,
@@ -15,11 +14,11 @@ const createForumPost = async (req, res) => {
   const newForumpost = await createForumPostLogic(req.body);
 
   if (newForumpost._id) {
-    return res
+     res
       .status(200)
-      .json({ message: `New post created with title: ${newForumpost.title} and id: ${newForumpost._id}` });
+      .json({ message: `New post created with title: ${newForumpost.title} and id: ${newForumpost._id} written by: ${newForumpost.writtenBy}` });
   } else {
-    return res.status(400).json(error);
+     res.status(400).json(error);
   }
 };
 router.post("/newpost", createForumPost);
@@ -32,7 +31,7 @@ const allForumPosts = async (req,res) => {
     if(forumposts) {
         res.status(200).json({ forumposts });
     } else {
-        res.staut(400).json(error);
+        res.status(400).json(error);
     }
 }
 router.get("/", allForumPosts);
@@ -45,10 +44,10 @@ const oneForumPost = async (req,res) => {
     const forumpost = await oneForumPostLogic(id);
 
     if(forumpost._id) {
-        return res.status(200).json({ forumpost});
+         res.status(200).json({ forumpost});
     
     }else {
-        return res.status(400).json({ error: "Can not find a forumpost with matching ID"})
+         res.status(400).json({ error: "Can not find a forumpost with matching ID"})
     }
 }
 router.get("/:id", oneForumPost);
@@ -60,9 +59,9 @@ const updateForumPost = async (req,res)=> {
     const forumpost = await updateOneForumPostLogic(id, req.body);
 
     if(forumpost._id) {
-        return res.status(200).json({ message: "Forumpost was successfully updated"})
+         res.status(200).json({ message: "Forumpost was successfully updated"})
     } else {
-        return res.status(400).json({ error: "Could not find a forumpost with matching ID to update"})
+         res.status(400).json({ error: "Could not find a forumpost with matching ID to update"})
     }
 }
 router.patch("/:id", updateForumPost);
@@ -73,12 +72,12 @@ const deleteForumPost = async (req,res) => {
     const forumpost = await deleteOneForumPostLogic(id);
 
     if(forumpost.id) {
-        return res.status(201).json({ message: "Forumpost was successfully deleted"})
+         res.status(201).json({ message: "Forumpost was successfully deleted"})
     } if(!forumpost.id){
-        return res.status(400).json({ error: "Could not find a forumpost with matching ID to delete"})
+         res.status(400).json({ error: "Could not find a forumpost with matching ID to delete"})
     } 
     else {
-        return res.status(500).json({ error: "Oops something went wrong"})
+         res.status(500).json({ error: "Oops something went wrong"})
     }
 }
 router.delete("/:id", deleteForumPost);

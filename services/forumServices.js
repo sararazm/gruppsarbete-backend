@@ -2,12 +2,17 @@ const mongoose = require("mongoose");
 const Forumpost = require("../models/forumModel");
 
 const createForumPostLogic = (forumpost) => {
-  const { title, text } = forumpost;
+  const { title, text, writtenBy } = forumpost;
 
   try {
     const newForumPost = new Forumpost({
-      ...forumpost,
+      title,
+      text,
+      writtenBy,
     });
+   /* const newForumPost = new Forumpost({
+      ...forumpost,
+    });*/
 
     if (!title) {
       return "You can not leave the titlefield empty";
@@ -23,12 +28,24 @@ const createForumPostLogic = (forumpost) => {
   }
 };
 
-const allForumPostsLogic = () => {
+const allForumPostsLogic =  () => {
   try {
     const forumposts = Forumpost.find({});
     if (!forumposts) {
       return res.status(400).json({ error: "No forumposts found" });
     }
+    if(forumposts){
+    aggregate([
+      {
+        $lookup: {
+          from: "Comment", //collection to join
+          localField: "_id", //field from input document
+          foreignField: "questionId",
+          as: "allComments", //output array field
+        },
+      },
+    ])
+  }
     return forumposts;
   } catch (error) {
     return error;

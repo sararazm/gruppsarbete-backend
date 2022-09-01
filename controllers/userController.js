@@ -41,7 +41,7 @@ const userSignIn = async (req, res) => {
     //create a JWT based on the user _id
     const token = createToken(user._id)
 
-    res.status(200).json({message: `The user ${user.email}, successfully signed in`});
+    res.status(200).json({message: `The user ${user.email}, successfully signed in with token: ${user.token}`});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
