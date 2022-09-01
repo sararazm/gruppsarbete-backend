@@ -1,6 +1,6 @@
 const Comment = require("../models/commentsModel");
 
-const createCommenLogic =()=> {
+const createCommentLogic =()=> {
     const {text, writtenBy } = comment;
     try {
         const newComment = new Comment({
@@ -31,6 +31,12 @@ const allCommentsLogic =()=> {
         return error
     }
 };
+
+/*
+*   BEHÖVER EN METOD FÖR ALLA
+*   COMMENTS TILL EN SPECIFIK POST
+*/
+
 
 const oneCommentLogic = (id) => {
     try {
@@ -70,7 +76,7 @@ const deleteCommentLogic =(id)=> {
 };
 
 module.exports = {
-    createCommenLogic,
+    createCommentLogic,
     allCommentsLogic,
     oneCommentLogic,
     updateCommentLogic,

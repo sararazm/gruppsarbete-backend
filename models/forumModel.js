@@ -21,4 +21,14 @@ const forumSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+const showWrittenBy = function(next) {
+  this.populate({
+    path: "writtenBy",
+    select: "username"
+  });
+  next();
+}
+
+
 module.exports = mongoose.model("Forumpost", forumSchema);

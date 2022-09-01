@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema(
 
 
 // Static method to sign up user
-userSchema.statics.signingUp = async function (email, username, password) {
+userSchema.statics.signingUp = async function (email, password, username) {
   //if the user leaves either email, username or password empty we throw an Error
   if (!email || !password || !username ) {
     throw Error("You can not leave any fields empty");
@@ -63,7 +63,7 @@ userSchema.statics.signingUp = async function (email, username, password) {
   const hashed = await bcrypt.hash(password, salted);
 
   // if all goes well, we return the user
-   const user = await this.create({ email, username, password: hashed });
+   const user = await this.create({ email, password: hashed, username });
   return user;
 };
 
