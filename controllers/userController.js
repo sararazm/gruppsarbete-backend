@@ -18,10 +18,10 @@ const createToken = (_id) => {
 
 //CREATE USER
 const userSignUp = async (req, res) => {
-  const { email, password, username } = req.body;
+  const { email, password, username, forumposts } = req.body;
 
   try {
-    const user = await User.signingUp(email, password, username);
+    const user = await User.signingUp(email, password, username, forumposts);
 
     const token = createToken(user._id);
     res.status(200).json({ email, username, token });
@@ -41,7 +41,7 @@ const userSignIn = async (req, res) => {
     //create a JWT based on the user _id
     const token = createToken(user._id)
 
-    res.status(200).json({message: `The user ${user.email}, successfully signed in with token: ${user.token}`});
+    res.status(200).json({message: `The user ${user.email}, successfully signed in with token: ${token}`});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

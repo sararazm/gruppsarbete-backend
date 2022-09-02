@@ -1,7 +1,7 @@
 const Comment = require("../models/commentsModel");
 
-const createCommentLogic =()=> {
-    const {text, writtenBy } = comment;
+const createCommentLogic =(comment)=> {
+    const {text, user, post } = comment;
     try {
         const newComment = new Comment({
             ...comment, 
@@ -10,8 +10,11 @@ const createCommentLogic =()=> {
         if(!text) {
             return "You can not leave text field empty"
         }
-        if(!writtenBy){
+        if(!user){
             return "username missing"
+        }
+        if(!post) {
+            return "post missing"
         }
 
         newComment.save();
@@ -24,7 +27,7 @@ const allCommentsLogic =()=> {
     try {
         const comments = Comments.find({})
         if(!comments) {
-            return res.status(400).json({error: "No comments found"})
+            return  "No comments found"
         }
         return comments;
     } catch(error) {
@@ -32,15 +35,21 @@ const allCommentsLogic =()=> {
     }
 };
 
-/*
-*   BEHÖVER EN METOD FÖR ALLA
-*   COMMENTS TILL EN SPECIFIK POST
-*/
+const getAllCommentsByPost = (postId) => {
+    try {
+        const comments = Comments.find({post: postId});
+        if(!comments){
+            return "No comments found"
+        }
+    } catch(error) {
+        return error;
+    }
+}
 
 
 const oneCommentLogic = (id) => {
     try {
-        const oneComment= await Comment.findById(id);
+        const oneComment=  Comment.findById(id);
         if(!oneComment) {
             return error;
         }
@@ -52,7 +61,7 @@ const oneCommentLogic = (id) => {
 
 const updateCommentLogic = (id, body)=> {
     try{
-        const comment = await Comment.findOneAndUpdate({_id: id}, {...body});
+        const comment =  Comment.findOneAndUpdate({_id: id}, {...body});
         if(!comment) {
             return error;
         }
@@ -67,7 +76,7 @@ const deleteCommentLogic =(id)=> {
         const comment = Comment.findByIdAndDelete({_id: id});
 
         if(!comment){
-            return res.status(400).json({ error: "No comment with matching ID was found"})
+            return "No comment with matching ID was found";
         }
         return comment;
     } catch(error) {
@@ -78,6 +87,7 @@ const deleteCommentLogic =(id)=> {
 module.exports = {
     createCommentLogic,
     allCommentsLogic,
+    getAllCommentsByPost,
     oneCommentLogic,
     updateCommentLogic,
     deleteCommentLogic,

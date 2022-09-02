@@ -10,25 +10,13 @@ const forumSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    writtenBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-    },
-    comments: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
-    }]
+  user: {
+    type: String
+  }
   },
   { timestamps: true }
 );
 
-const showWrittenBy = function(next) {
-  this.populate({
-    path: "writtenBy",
-    select: "username"
-  });
-  next();
-}
 
 
 module.exports = mongoose.model("Forumpost", forumSchema);

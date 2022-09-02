@@ -16,7 +16,7 @@ const createComment = async (req, res) => {
       .status(200)
       .json({ message: "New comment to forumpost has been added" });
   } else {
-    res.status(400).json(error);
+    res.status(400).json({error: "Could not save comment" });
   }
 };
 router.post("/newcomment", createComment);
