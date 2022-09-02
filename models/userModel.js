@@ -17,21 +17,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    forumposts: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Forumpost",
-    }],
-    forumcomments:[{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
-    }],
-    pointsTotal: {
-      type: Number,
-      default: 0,
-    },
-    gamesPlayed :{
-      type: Number,
-    }
   },
   { timestamps: true }
 );
