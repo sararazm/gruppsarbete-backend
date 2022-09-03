@@ -1,24 +1,26 @@
 const Forumpost = require("../models/forumModel");
 
 const createForumPostLogic = (forumpost) => {
-  const { title, text, user} = forumpost;
+  const user_id = user._id;
+  const { title, text} = forumpost;
   
+  
+  if (!title) {
+    return "You can not leave the titlefield empty";
+  }
+  if (!text) {
+    return "You can not leave the textfield empty";
+  } 
+
   try {
     const newForumPost = new Forumpost({
+      user_id,
      ...forumpost
     });
-
-
-    if (!title) {
-      return "You can not leave the titlefield empty";
-    }
-    if (!text) {
-      return "You can not leave the textfield empty";
-    } if(!user){
-      return "Someone needs to be the author.."
-    }
     newForumPost.save();
     return newForumPost;
+
+    
   } catch (error) {
     return error;
   }

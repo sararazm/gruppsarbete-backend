@@ -18,13 +18,13 @@ const createToken = (_id) => {
 
 //CREATE USER
 const userSignUp = async (req, res) => {
-  const { email, password, username, forumposts } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const user = await User.signingUp(email, password, username, forumposts);
+    const user = await User.signingUp(email, password);
 
     const token = createToken(user._id);
-    res.status(200).json({ email, username, token });
+    res.status(200).json({ email, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
