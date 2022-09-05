@@ -8,7 +8,9 @@
     "json-server": "^0.17.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^8.9.0",
-    "mongoose": "^6.5.2"
+    "mongoose": "^6.5.2",
+    "swagger-jsdoc": "^6.2.5",
+    "swagger-ui-express": "^4.5.0"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^4.1.0",
