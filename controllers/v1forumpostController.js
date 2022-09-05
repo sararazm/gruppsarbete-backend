@@ -1,5 +1,5 @@
 const express = require("express");
-const ForumService = require("../services/forumClassService");
+const ForumService = require("../services/V1forumService");
 //const { getAllComentsByPost} = require("../services/commentsService");
 
 const router = express.Router();
