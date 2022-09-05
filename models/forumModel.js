@@ -10,9 +10,6 @@ const forumSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-  user: {
-    type: String
-  }
   },
   { timestamps: true }
 );

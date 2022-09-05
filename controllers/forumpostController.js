@@ -7,6 +7,8 @@ const {
   updateOneForumPostLogic,
   deleteOneForumPostLogic,
 } = require("../services/forumServices");
+
+
 const { getAllComentsByPost} = require("../services/commentsService");
 
 const router = express.Router();
@@ -26,6 +28,10 @@ const createForumPost = async (req, res) => {
   }
 };
 router.post("/newpost", createForumPost);
+
+
+
+
 
 //GET all forumposts
 const allForumPosts = async (req, res) => {
