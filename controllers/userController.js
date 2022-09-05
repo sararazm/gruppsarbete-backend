@@ -1,5 +1,3 @@
-
-
 const express = require("express");
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
@@ -78,6 +76,8 @@ router.post("/signin", userSignIn);
  *                      password:
  *                        type: string
  *                        description: The users hashed password
+ *      404:
+ *         description: No posts found 
  */
 
 //GET ALL USERS
