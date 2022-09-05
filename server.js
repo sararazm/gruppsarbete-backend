@@ -38,3 +38,10 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+
+// docker test
+
+app.get('/', (req, res) => {
+  console.log("Docker is ON!")
+  res.send("Hello Docker!")
+})
