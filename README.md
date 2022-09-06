@@ -20,4 +20,13 @@ npm i
 node server.js
 ```
 ---
-# Onboarding
+# ONBOARDING
+| Frameworks | Links |
+| ------ | ------ |
+| Github Repo | [FRONTEND - Repository theDiscussingQuiz](https://github.com/nataliaermeryd/thediscussingquiz/) |
+| GitHub Repo | [BACKEND - Repository gruppsarbete-backend](https://github.com/sararazm/gruppsarbete-backend/) |
+| Trello Agile/Scrum | [Trello Board SPERN](https://trello.com/b/Dc9IJTCG/grupp-1-spern) |
+| framework | [link]() |
+| framework | [link]() |
+| framework | [link]() |
+---
