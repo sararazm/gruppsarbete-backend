@@ -1,7 +1,7 @@
 const express = require("express");
 const { getForumpost } = require("../services/V1forumService");
-const router = eexpress.Router();
-const UserService = require("../services/v1userServices");
+const router = express.Router();
+const UserService = require("../services/v1userService");
 const jwt = require("jsonwebtoken");
 
 
@@ -42,8 +42,39 @@ const createToken = (_id) => {
   };
   router.post("/signin", userSignIn);
 
-  
-
+  /**
+ * @swagger
+ * /users:
+ *  get:
+ *    summary: Retrieve a list of registered users
+ *    description: Retrieve a list of users from mongo collection User
+ *    responses:
+ *      200:
+ *        description: A list of users
+ *        content: 
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                data:
+ *                  type: array
+ *                  items:
+ *                    type: object
+ *                    properties:
+ *                      id:
+ *                        type: integer
+ *                        description: The user ID created by MongoDB
+ *                      email:
+ *                        type: string
+ *                        description: The users email
+ *                        example: user@mail.com
+ *                      password:
+ *                        type: string
+ *                        description: The users hashed password
+ *                        example: ashdklsaj5656
+ *      404:
+ *         description: No posts found 
+ */
 router.get("/", async(req,res)=>{
     const user = await UserService.getUsers();
     if(!UserService.error) {
@@ -52,6 +83,41 @@ router.get("/", async(req,res)=>{
         res.status(404).send({ error: "No users found"})
     }
 });
+
+
+/**
+ * @swagger
+ * /users/:id:
+ *  get:
+ *    summary: Retrieve a user by ID
+ *    description: Retrieve a User by ID
+ *    responses:
+ *      200:
+ *        description: A user
+ *        content: 
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                data:
+ *                  type: object
+ *                  items:
+ *                    type: object
+ *                    properties:
+ *                      id:
+ *                        type: integer
+ *                        description: The user ID created by MongoDB
+ *                      email:
+ *                        type: string
+ *                        description: The users email
+ *                        example: user@mail.com
+ *                      password:
+ *                        type: string
+ *                        description: The users hashed password
+ *                        example: ashdklsaj5656
+ *      404:
+ *         description: No posts found 
+ */
 
 router.get("/:id", async (req,res)=> {
     const user = await UserService.getUser(req.params.id);
@@ -62,6 +128,13 @@ router.get("/:id", async (req,res)=> {
     }
 })
 
+
+/**
+ * @swagger
+ * /users/:id:
+ * 
+ * 
+ * */
 router.patch("/:id", async (req,res)=> {
     const user = await UserService.updateUser(req.params.id, req.body);
     if(user) {

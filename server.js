@@ -60,7 +60,7 @@ app.use("/api/comments", commentsRoutes);
 const port =  process.env.PORT || 8080;
 //database-connection
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI_CLOUD)
   .then(() => {
     app.listen(port, () => {
       console.log("Server listening on port:", process.env.PORT);

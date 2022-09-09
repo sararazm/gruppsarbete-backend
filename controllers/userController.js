@@ -47,6 +47,7 @@ const userSignIn = async (req, res) => {
 };
 router.post("/signin", userSignIn);
 
+
 /**
  * @swagger
  * /users:
@@ -92,6 +93,9 @@ const allUsers = async (req, res) => {
   }
 };
 router.get("/", allUsers);
+
+
+
 
 //GET /READ ONE USER BY ID
 const oneUser = async (req, res) => {
