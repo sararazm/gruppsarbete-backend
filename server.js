@@ -7,7 +7,7 @@ const { router: forumRoutes} = require("./controllers/forumpostController")
 const  v1forumRoutes = require("./controllers/v1forumpostController")
 const { router: commentsRoutes} = require("./controllers/commentsController")
 const cors = require("cors");
-
+//const path =require('path');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
@@ -15,7 +15,7 @@ const app = express();
 
 dotenv.config();
 app.use(cors())
-
+//app.use(express.static(path.join(__dirname + 'build')))
 app.use(express.json());
 app.use((req, res, next) => {
   console.log(req.path, req.method);
