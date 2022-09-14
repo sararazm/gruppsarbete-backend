@@ -113,7 +113,7 @@ router.post("/signin", userSignIn);
  *                    type: object
  *                    properties:
  *                      id:
- *                        type: integer
+ *                        type: string
  *                        description: The user ID created by MongoDB
  *                      email:
  *                        type: string
@@ -137,9 +137,9 @@ const allUsers = async (req, res) => {
 };
 router.get("/", allUsers);
 
-/**      ----!!!!!DONE DO NOT TOUCH!!!!---- Connectar men saknar att hämta ifrån id
+/**      ----!!!!!DONE DO NOT TOUCH!!!!----
  * @swagger
- * /user/:id:
+ * /user/{id}:
  *  get:
  *    summary: Retrieve a list of registered users
  *    description: Retrieve a list of users from mongo collection User
@@ -149,9 +149,9 @@ router.get("/", allUsers);
  *        required: true
  *        description: ID of the user to retrieve.
  *        schema:
- *          type: integer
+ *          type: string
  *    responses:
- *      201:
+ *      200:
  *        description: A Single User
  *        content:
  *          application/json:
@@ -164,7 +164,7 @@ router.get("/", allUsers);
  *                    type: object
  *                    properties:
  *                      id:
- *                        type: integer
+ *                        type: string
  *                        description: The user ID created by MongoDB
  *                      email:
  *                        type: string
@@ -173,6 +173,8 @@ router.get("/", allUsers);
  *                      password:
  *                        type: string
  *                        description: The users hashed password
+ *      404:
+ *          description: No posts found
  */
 //GET /READ ONE USER BY ID
 const oneUser = async (req, res) => {
