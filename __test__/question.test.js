@@ -1,9 +1,17 @@
 const {MongoClient} = require('mongodb');
+const request = require("supertest")
+
 const {createQuestionLogic } = require("../services/questionServices");
 
-describe('insert', () => {
+
+describe('Testing with supertest', () => {
+  afterAll(async () => { 
+    await new Promise(resolve => setTimeout(() => resolve(), 500)); // avoid jest open handle error
+  });
+describe('create a question', () => {
   let connection;
   let db;
+
 
   beforeAll(async () => {
     connection = await MongoClient.connect("mongodb+srv://QuizForum:btSdlXz82dAomW3F@cluster0.xafiaul.mongodb.net/?retryWrites=true&w=majority", {
@@ -13,10 +21,9 @@ describe('insert', () => {
     db = await connection.db("QuizForum");
   });
 
-  afterAll(async () => {
-    await connection.close();
-  });
-
+  
+  
+  
   it('should insert a doc into collection', async () => {
     const questions = db.collection("questions");
 
@@ -29,3 +36,5 @@ describe('insert', () => {
     expect(insertedQuestion).toEqual(mockQuestion);
   });
 });
+
+})

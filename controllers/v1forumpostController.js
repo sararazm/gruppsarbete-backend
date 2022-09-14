@@ -4,50 +4,21 @@ const ForumService = require("../services/V1forumService");
 
 const router = express.Router();
 
+
+
+
 // CREATE a new forumpost
 router.post("/newpost", async (req,res)=> {
 const forumpost = await ForumService.createForumpost(req.body);
 if(!forumpost.error){
-  res.status(200).send(forumpost)
+  res.status(201).send(forumpost)
 } else {
   res.status(401).send({ error: "Bad input"})
 }
 
 });
 
-/**
- * @swagger
- * /forum:
- *  get:
- *    summary: Retrieve a list of forumposts
- *    description: Retrieve a list of forumposts from mongo collection Forum
- *    responses:
- *      200:
- *        description: A list of forumposts
- *        content: 
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                data:
- *                  type: array
- *                  items:
- *                    type: object
- *                    properties:
- *                      id:
- *                        type: integer
- *                        description: The forumpost ID created by MongoDB
- *                      titel:
- *                        type: string
- *                        description: Title of the forumpost
- *                        example: This is a title
- *                      text:
- *                        type: string
- *                        description: The text of the post
- *                        example: The text of the post 
- *      404:
- *          description: No posts found    
- */
+
 // GET all forumposts
 router.get("/", async (req,res)=> {
     const forumposts = await ForumService.getForumposts();
