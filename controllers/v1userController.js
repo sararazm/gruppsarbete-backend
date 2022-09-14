@@ -1,7 +1,7 @@
 const express = require("express");
 const { getForumpost } = require("../services/V1forumService");
-const router = eexpress.Router();
-const UserService = require("../services/v1userServices");
+const router = express.Router();
+const UserService = require("../services/v1userService");
 const jwt = require("jsonwebtoken");
 
 
@@ -42,7 +42,6 @@ const createToken = (_id) => {
   };
   router.post("/signin", userSignIn);
 
-  
 
 router.get("/", async(req,res)=>{
     const user = await UserService.getUsers();
@@ -53,6 +52,9 @@ router.get("/", async(req,res)=>{
     }
 });
 
+
+
+
 router.get("/:id", async (req,res)=> {
     const user = await UserService.getUser(req.params.id);
     if(user){
@@ -62,6 +64,13 @@ router.get("/:id", async (req,res)=> {
     }
 })
 
+
+/**
+ * @swagger
+ * /users/:id:
+ * 
+ * 
+ * */
 router.patch("/:id", async (req,res)=> {
     const user = await UserService.updateUser(req.params.id, req.body);
     if(user) {
