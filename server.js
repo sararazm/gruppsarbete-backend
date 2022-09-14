@@ -8,8 +8,10 @@ const  v1forumRoutes = require("./controllers/v1forumpostController")
 const { router: commentsRoutes} = require("./controllers/commentsController")
 const cors = require("cors");
 //const path =require('path');
-const swaggerJSDoc = require('swagger-jsdoc');
+
 const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
 
 const app = express();
 
@@ -23,32 +25,7 @@ app.use((req, res, next) => {
 });
 
 
-
-
-const swaggerDefinition = {
-  openapi: '3.0.0',
-  info: {
-    title: 'Express API for JSONPlaceholder',
-    version: '1.0.0',
-    description: "This is a REST API application made with Express"
-  },
-  
-  servers: [
-    { url: "http://localhost:3030/api",
-    description: "Development server"
-  }
-  ]
-};
-
-const options = {
-  swaggerDefinition,
-  // Paths to files containing OpenAPI definitions
-  apis: ['./controllers/*.js'],
-};
-
-const swaggerSpec = swaggerJSDoc(options);
-
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // gets specified routes from routes-folder
 app.use("/api/user", userRoutes);
