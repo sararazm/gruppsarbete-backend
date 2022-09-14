@@ -21,7 +21,7 @@
                         "parameters": [],
                         "responses": {
                             "200": {
-                                "description": "Successully fetched all users",
+                                "description": "Successfully fetched all users",
                                 "schema": {
                                     "type": "array",
                                     "items": {
@@ -63,5 +63,3 @@
                 }
         }
     }
-
-
