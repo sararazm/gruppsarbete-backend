@@ -3,35 +3,28 @@ const {
   createForumPostLogic,
   allForumPostsLogic,
   oneForumPostLogic,
-  
+
   updateOneForumPostLogic,
   deleteOneForumPostLogic,
 } = require("../services/forumServices");
 
-
-const { getAllComentsByPost} = require("../services/commentsService");
+const { getAllComentsByPost } = require("../services/commentsService");
 
 const router = express.Router();
 
 // CREATE a new forumpost
 const createForumPost = async (req, res) => {
   const newForumpost = await createForumPostLogic(req.body);
-  
+
   if (newForumpost._id) {
-    res
-      .status(200)
-      .json({
-        message: `New post created with title: ${newForumpost.title} and id: ${newForumpost._id}`,
-      });
+    res.status(200).json({
+      message: `New post created with title: ${newForumpost.title} and id: ${newForumpost._id}`,
+    });
   } else {
     res.status(400).json({ error: "Could not create new post" });
   }
 };
 router.post("/newpost", createForumPost);
-
-
-
-
 
 //GET all forumposts
 const allForumPosts = async (req, res) => {
@@ -45,19 +38,14 @@ const allForumPosts = async (req, res) => {
 };
 router.get("/", allForumPosts);
 
-
-
 // GET all comments for one post
 const commentsToForumpost = async (req, res) => {
-    const { id } = req.params;
- const forumpost = await oneForumPostLogic(id)
- const comments = await getAllComentsByPost(id);
- res.status(200).json({forumpost, comments});
-
+  const { id } = req.params;
+  const forumpost = await oneForumPostLogic(id);
+  const comments = await getAllComentsByPost(id);
+  res.status(200).json({ forumpost, comments });
 };
 router.get("/", commentsToForumpost);
-
-
 
 // GET one forumpost by ID
 const oneForumPost = async (req, res) => {
@@ -98,11 +86,8 @@ const deleteForumPost = async (req, res) => {
 
   if (forumpost.id) {
     res.status(201).json({ message: "Forumpost was successfully deleted" });
-  }
-  else {
-    res
-      .status(400)
-      .json({ error: "Could not delete" });
+  } else {
+    res.status(400).json({ error: "Could not delete" });
   }
 };
 router.delete("/:id", deleteForumPost);
