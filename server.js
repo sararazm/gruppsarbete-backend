@@ -26,7 +26,7 @@ app.use((req, res, next) => {
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // gets specified routes from routes-folder
-app.use("/api/users", userRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/quiz", quizRoutes);
 app.use("/api/forum", v1forumRoutes);
 app.use("/api/comments", commentsRoutes);
