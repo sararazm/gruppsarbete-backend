@@ -1,15 +1,19 @@
-FROM node:16
+FROM node:16-alpine
 
-WORKDIR /code
+RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
 
-ENV PORT 3030
+WORKDIR /home/node/app
 
-ENV MONGO_URI mongodb://host.docker.internal
+COPY package*.json ./
 
-COPY package.json /code/package.json
+USER node
 
 RUN npm install
 
-COPY . /code
+COPY --chown=node:node . .
+
+ENV PORT=3030
+
+EXPOSE 3030
 
 CMD [ "node", "server.js" ]
