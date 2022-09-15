@@ -93,42 +93,6 @@ const userSignIn = async (req, res) => {
 };
 router.post("/signin", userSignIn);
 
-<<<<<<< HEAD
-
-=======
-/**           ----!!!!!DONE DO NOT TOUCH!!!!----
- * @swagger
- * /user:
- *  get:
- *    summary: Retrieve a list of registered users
- *    description: Retrieve a list of users from mongo collection User
- *    responses:
- *      200:
- *        description: A list of users
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                data:
- *                  type: array
- *                  items:
- *                    type: object
- *                    properties:
- *                      id:
- *                        type: string
- *                        description: The user ID created by MongoDB
- *                      email:
- *                        type: string
- *                        description: The users email
- *                        example: user@mail.com
- *                      password:
- *                        type: string
- *                        description: The users hashed password
- *      404:
- *          description: No posts found
- */
->>>>>>> 34d5c421e088e9f04462945faac7caf27aee9275
 
 //GET ALL USERS - SWAGGER
 const allUsers = async (req, res) => {
