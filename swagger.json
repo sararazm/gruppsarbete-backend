@@ -85,39 +85,6 @@
       }
     },
     "/user/{id}": {
-      "get": {
-        "summary": "Find user by ID",
-        "operationId": "findUserById",
-        "produces": [
-          "application/json",
-          "application/xml",
-          "text/xml",
-          "text/html"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of user to get",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "user response",
-            "schema": {
-              "$ref": "#/definitions/user"
-            }
-          },
-          "400": {
-            "description": "Invalid ID",
-            "schema": {
-              "$ref": "#/definitions/errorModel"
-            }
-          }
-        }
-      },
       "patch": {
         "summary": "Update user by ID",
         "operationId": "updateUser",
@@ -164,6 +131,39 @@
           }
         }
       },
+      "get": {
+        "summary": "Find user by ID",
+        "operationId": "findUserById",
+        "produces": [
+          "application/json",
+          "application/xml",
+          "text/xml",
+          "text/html"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user to get",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user response",
+            "schema": {
+              "$ref": "#/definitions/user"
+            }
+          },
+          "400": {
+            "description": "Invalid ID",
+            "schema": {
+              "$ref": "#/definitions/errorModel"
+            }
+          }
+        }
+      },
       "delete": {
         "summary": "Delete user by ID",
         "operationId": "deleteUser",
@@ -195,9 +195,6 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "#/definitions/newUser"
-        },
-        {
           "required": ["id"],
           "properties": {
             "id": {
@@ -205,13 +202,15 @@
               "unique": true
             }
           }
+        },
+        {
+          "$ref": "#/definitions/newUser"
         }
       ]
     },
     "newUser": {
       "type": "object",
       "allOf": [
-        { "timestamps": true },
         {
           "required": ["email", "password"],
           "properties": {
@@ -233,14 +232,9 @@
     "updateUser": {
       "type": "object",
       "allOf": [
-        { "timestamps": true },
         {
-          "required": ["id", "email"],
+          "required": ["email"],
           "properties": {
-            "id": {
-              "type": "string",
-              "unique": true
-            },
             "email": {
               "type": "string",
               "required": true,
