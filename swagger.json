@@ -188,65 +188,6 @@
           }
         }
       }
-    },
-    "/user/{email}": {
-      "get": {
-        "summary": "Find user by email",
-        "operationId": "findUserByEmail",
-        "produces": [
-          "application/json",
-          "application/xml",
-          "text/xml",
-          "text/html"
-        ],
-        "parameters": [
-          {
-            "name": "email",
-            "in": "path",
-            "description": "email of user to get",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "user response",
-            "schema": {
-              "$ref": "#/definitions/user"
-            }
-          },
-          "400": {
-            "description": "Invalid ID",
-            "schema": {
-              "$ref": "#/definitions/errorModel"
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete user by email",
-        "operationId": "deleteUser",
-        "parameters": [
-          {
-            "name": "email",
-            "in": "path",
-            "description": "email of user to delete",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "user successfully deleted"
-          },
-          "400": {
-            "description": "Invalid ID",
-            "schema": {
-              "$ref": "#/definitions/errorModel"
-            }
-          }
-        }
-      }
     }
   },
   "definitions": {
