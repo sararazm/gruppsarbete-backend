@@ -50,23 +50,6 @@ const userSignIn = async (req, res) => {
 };
 router.post("/signin", userSignIn);
 
-/*
-//CREATE A NEW USER THRU SWAGGER
-const newUser = async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const createUser = await User.createUserLogic(email, password, req.body);
-
-    const token = createToken(createUser._id);
-    res.status(200).json({ email, token });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-router.post("/", newUser);
-*/
-
 //GET ALL USERS - SWAGGER
 const allUsers = async (req, res) => {
   const users = await allUsersLogic();
