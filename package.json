@@ -21,11 +21,13 @@
   },
   "scripts": {
     "start": "node server.js",
+    "dev": "dev.env server.js nodemon server.js",
     "json:server": "json-server --watch db.json",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "npm run test -- --watch"
   },
   "name": "gruppsarbete-backend",
-  "description": "Fake rest api for testing",
+  "description": "Backend for group project",
   "version": "1.0.0",
   "main": "server.js",
   "repository": {
@@ -39,6 +41,7 @@
   },
   "homepage": "https://github.com/sararazm/gruppsarbete-backend#readme",
   "jest": {
+  
     "preset": "@shelf/jest-mongodb"
   }
 }

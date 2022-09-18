@@ -15,50 +15,7 @@ const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "2d" });
 };
 
-/**
- * @swagger
- * /user:
- *   post:
- *     summary: Create a JSONPlaceholder user.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *               properties:
- *                 id:
- *                   type: integer
- *               type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                   email:
- *                     type: string
- *                   password:
- *                     type: string
- *     responses:
- *       200:
- *         description: Created
- *       requestBody:
- *         required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *               properties:
- *                  id:
- *                    type: integer
- *                    description: The user ID created by MongoDB
- *                    example: 0
- *                  email:
- *                    type: string
- *                    description: The users email
- *                    example: user@mail.com
- *                  password:
- *                    type: string
- *                    description: The users hashed password
- */
+ 
 //CREATE USER
 const userSignUp = async (req, res) => {
   const { email, password } = req.body;
@@ -93,42 +50,7 @@ const userSignIn = async (req, res) => {
 };
 router.post("/signin", userSignIn);
 
-<<<<<<< HEAD
 
-=======
-/**           ----!!!!!DONE DO NOT TOUCH!!!!----
- * @swagger
- * /user:
- *  get:
- *    summary: Retrieve a list of registered users
- *    description: Retrieve a list of users from mongo collection User
- *    responses:
- *      200:
- *        description: A list of users
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                data:
- *                  type: array
- *                  items:
- *                    type: object
- *                    properties:
- *                      id:
- *                        type: string
- *                        description: The user ID created by MongoDB
- *                      email:
- *                        type: string
- *                        description: The users email
- *                        example: user@mail.com
- *                      password:
- *                        type: string
- *                        description: The users hashed password
- *      404:
- *          description: No posts found
- */
->>>>>>> 34d5c421e088e9f04462945faac7caf27aee9275
 
 //GET ALL USERS - SWAGGER
 const allUsers = async (req, res) => {
@@ -141,45 +63,7 @@ const allUsers = async (req, res) => {
 };
 router.get("/", allUsers);
 
-/**      ----!!!!!DONE DO NOT TOUCH!!!!----
- * @swagger
- * /user/{id}:
- *  get:
- *    summary: Retrieve a list of registered users
- *    description: Retrieve a list of users from mongo collection User
- *    parameters:
- *      - in: path
- *        name: id
- *        required: true
- *        description: ID of the user to retrieve.
- *        schema:
- *          type: string
- *    responses:
- *      200:
- *        description: A Single User
- *        content:
- *          application/json:
- *            schema:
- *              type: object
- *              properties:
- *                data:
- *                  type: array
- *                  items:
- *                    type: object
- *                    properties:
- *                      id:
- *                        type: string
- *                        description: The user ID created by MongoDB
- *                      email:
- *                        type: string
- *                        description: The users email
- *                        example: user@mail.com
- *                      password:
- *                        type: string
- *                        description: The users hashed password
- *      404:
- *          description: No posts found
- */
+
 //GET /READ ONE USER BY ID
 const oneUser = async (req, res) => {
   const { id } = req.params;

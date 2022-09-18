@@ -1,81 +1,37 @@
 const {MongoClient} = require('mongodb');
-
 const request = require("supertest")
-import mongoose from "mongoose";
-const server = require('../server');
+const { User, signingUp } = require("../models/userModel");
+const app = require("../app");
 
 
+describe('insert user', () => {
+    let db;
+    let connection;
 
-const HOST = "mongodb+srv://QuizForum:btSdlXz82dAomW3F@cluster0.xafiaul.mongodb.net/?retryWrites=true&w=majority";
-const userId = new mongoose.Types.ObjectId().toString();
+    afterAll(async () => { 
+      await new Promise(resolve => setTimeout(() => resolve(), 500)); // avoid jest open handle error
+      connection.close()
+      });
 
-
-
-describe('Testing with supertest', () => {
-  let connection;
-  let db;
-afterAll(async () => { 
-	await new Promise(resolve => setTimeout(() => resolve(), 500)); // avoid jest open handle error
-});
-
-beforeAll(async () => {
-  connection = await MongoClient.connect(HOST, {
-    useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-db = await connection.db("QuizForum");
-});
-
-
-
-    describe("Given get/", ()=> {
-      it("should return status 200", () => {
-        container = request(HOST)
-        container.get("/")
-        .expect(200).
-        expect('Allow', /GET/)
-      
-      })
-    })
-  
-    describe("given GET action for /api/user", ()=> {
-      it("should return a list of users", () => {
-        container = request(HOST)
-        container.get("/api/user").expect("Content-Type", /json/).expect(200)
-      })
-    })
-  })
-  
-
-  
-  const user = {
-    "email": "string",
-    "password": "string"
-  }
-
-
-  describe("Given POST action for /api/user/signup", () => {
-    it("should create a new user", (done)=> {
-      container = request(HOST)
-      container
-        .post("/api/user/signup")
-        .send(user)
-        .set('Accept', 'application/json')
-        .expect(201, /id/, function(err,res){
-          if(res.body.id.toString() < 19 ){
-            throw new Error('ID too short');
-				}
-			})
-      .expect(200,/email/)
-      .expect(200,/password/)
-      .expect("Content-Type", 'application/json/')
-      .expect(function(err, res) {
-        if(err) returndone(err);
-
-        done()
-      })
-       
-    })
-    
+  beforeAll(async () => {
+    connection = await MongoClient.connect("mongodb+srv://QuizForum:btSdlXz82dAomW3F@cluster0.xafiaul.mongodb.net/?retryWrites=true&w=majority", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true, 
+    });
+    db = await connection.db("QuizForum");
   });
-  
+
+
+    it("should add a new user to DB", async() => {
+        const users = db.collection('users');
+
+        const mockUser = {_id: '630675e4d515e80c26eb14f2', email: "Tester@mail.se", password: "password"};
+        await signingUp(mockUser);
+
+    const insertedUser = await users.findOne({_id: '630675e4d515e80c26eb14f2'});
+    expect(insertedUser).toEqual(mockUser);
+
+
+    })
+
+});

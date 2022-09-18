@@ -14,7 +14,7 @@ describe('create a question', () => {
 
 
   beforeAll(async () => {
-    connection = await MongoClient.connect("mongodb+srv://QuizForum:btSdlXz82dAomW3F@cluster0.xafiaul.mongodb.net/?retryWrites=true&w=majority", {
+    connection = await MongoClient.connect("mongodb+srv://QuizForum:btSdlXz82dAomW3F@cluster0.xafiaul.mongodb.net/test?retryWrites=true&w=majority", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
