@@ -18,7 +18,6 @@ const createQuestionLogic = (question) => {
     if (!incorrectAnswer) {
       return "You can't leave incorrect empty";
     }
-   
 
     newQuestion.save();
     return newQuestion;
@@ -28,14 +27,14 @@ const createQuestionLogic = (question) => {
 };
 
 const allQuestionsLogic = () => {
-  try{
+  try {
     const questions = Question.find({});
-    if(!questions) {
-      return res.status(400).json({error: "No questions found"})
+    if (!questions) {
+      return res.status(400).json({ error: "No questions found" });
     }
-    return questions
-  } catch(error){
-    return error
+    return questions;
+  } catch (error) {
+    return error;
   }
 };
 
@@ -67,7 +66,7 @@ const updateQuestionLogic = (id, body) => {
   try {
     const question = Question.findByIdAndUpdate({ _id: id }, { ...body });
 
-    if(!question) {
+    if (!question) {
       return error;
     }
     return question;

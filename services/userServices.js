@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/userModel");
 const createToken = (_id) => {
@@ -8,7 +8,6 @@ const createToken = (_id) => {
 };
 // create user logic
 const createUserLogic = () => {};
-
 
 /*sign in user logic
 const userSignInLogic= async (email, password)=> {
@@ -61,7 +60,6 @@ const allUsersLogic = () => {
 
 //get one user logic
 const oneUserLogic = async (id) => {
- 
   try {
     const oneUser = await User.findById(id);
 

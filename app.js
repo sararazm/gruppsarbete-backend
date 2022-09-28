@@ -13,5 +13,4 @@ app.use("/api/quiz", quizRoutes);
 app.use("/api/forum", v1forumRoutes);
 app.use("/api/comments", commentsRoutes);
 
-
-module.exports = app
+module.exports = app;

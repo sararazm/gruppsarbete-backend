@@ -18,7 +18,8 @@
     "husky": "^8.0.1",
     "jest": "^28.1.3",
     "jest-runner-groups": "^2.2.0",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1"
   },
   "scripts": {
     "start": "node server.js",
@@ -26,7 +27,17 @@
     "json:server": "json-server --watch db.json",
     "test": "jest",
     "test:watch": "npm run test -- --watch",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "prettier --check .",
+    "format": "prettier --write ."
+  },
+  "husky": {
+    "hooks": {
+      "applypatch-msg": "echo \"[Husky] applypatch-msg\"",
+      "pre-applypatch": "echo \"[Husky] pre-applypatch\"",
+      "post-applypatch": "echo \"[Husky] post-applypatch\"",
+      "pre-commit": "prettier --write . && git add -A ."
+    }
   },
   "name": "gruppsarbete-backend",
   "description": "Backend for group project",

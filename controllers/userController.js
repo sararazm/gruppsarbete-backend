@@ -15,7 +15,6 @@ const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "2d" });
 };
 
- 
 //CREATE USER
 const userSignUp = async (req, res) => {
   const { email, password } = req.body;
@@ -50,8 +49,6 @@ const userSignIn = async (req, res) => {
 };
 router.post("/signin", userSignIn);
 
-
-
 //GET ALL USERS - SWAGGER
 const allUsers = async (req, res) => {
   const users = await allUsersLogic();
@@ -62,7 +59,6 @@ const allUsers = async (req, res) => {
   }
 };
 router.get("/", allUsers);
-
 
 //GET /READ ONE USER BY ID
 const oneUser = async (req, res) => {
