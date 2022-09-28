@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^4.1.0",
+    "husky": "^8.0.1",
     "jest": "^28.1.3",
     "jest-runner-groups": "^2.2.0",
     "nodemon": "^2.0.19"
@@ -24,7 +25,8 @@
     "dev": "dev.env server.js nodemon server.js",
     "json:server": "json-server --watch db.json",
     "test": "jest",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "prepare": "husky install"
   },
   "name": "gruppsarbete-backend",
   "description": "Backend for group project",
@@ -41,7 +43,6 @@
   },
   "homepage": "https://github.com/sararazm/gruppsarbete-backend#readme",
   "jest": {
-  
     "preset": "@shelf/jest-mongodb"
   }
 }
