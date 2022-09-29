@@ -59,9 +59,9 @@ const allUsersLogic = () => {
 };
 
 //get one user logic
-const oneUserLogic = async (id) => {
+const oneUserLogic = async (_id) => {
   try {
-    const oneUser = await User.findById(id);
+    const oneUser = await User.findById(_id);
 
     if (!oneUser) {
       return error;
@@ -79,7 +79,7 @@ const updateUserLogic = (id, body) => {
   }
 */
   try {
-    const user = User.findOneAndUpdate({ _id: id }, { ...body });
+    const user = User.findOneAndUpdate({ _id: id }, { ...body }, { new: true} );
 
     if (!user) {
       return error;

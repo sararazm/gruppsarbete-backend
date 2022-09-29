@@ -1,18 +1,47 @@
-const Forumpost = require("../models/forumModel")
-//const createForumpost = require("../controllers/v1forumpostController");
-const createForumPostLogic = require("../services/V1forumService")
+const dotenv = require("dotenv");
 
-describe("Creating forumposts", () => {
+const { MongoClient } = require("mongodb");
+const request = require("supertest");
+const app = require("../server");
+//const db = require("./testdb")
+const { createForumpost } = require("../services/V1forumService");
 
-    it.only("Should not create a new post if title is not unique", async () => {
-        
-        Forumpost.findOne = jest.fn().mockReturnValue({
-            title: "Test title",
-        });
+describe("Forumposts", () => {
+  afterAll(async () => {
+    await new Promise((resolve) => setTimeout(() => resolve(), 500)); // avoid jest open handle error
+  });
 
-        Forumpost.prototype.save = jest.fn().mockImplementation(() => {});
+  describe("Should create a new forumpost", () => {
+    let connection;
+    let db;
 
-        await expect(new createForumPostLogic("Test title", "hej hej ett test", "Other")).rejects.toThrowError();
-    }
+    beforeAll(async () => {
+      connection = await MongoClient.connect(
+        "mongodb+srv://QuizForum:btSdlXz82dAomW3F@cluster0.xafiaul.mongodb.net/?retryWrites=true&w=majority",
+        {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        }
+      );
+      db = await connection.db("QuizForum");
+    });
 
-)})
+    it("should add to forumpost collection", async () => {
+      const forumposts = db.collection("testposts");
+
+      const testForumpost = {
+        _id: "630675e4d515e80c26eb14g7",
+        title: "Test Title 12",
+        text: "this is just a jest-test",
+        category: "Other",
+      };
+      await createForumpost(testForumpost);
+
+      const insertedTestPost = await forumposts.findOne({
+        _id: "630675e4d515e80c26eb14g7",
+      });
+
+      expect(insertedTestPost).toEqual(testForumpost);
+    });
+  });
+});
