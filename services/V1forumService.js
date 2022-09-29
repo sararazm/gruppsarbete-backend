@@ -2,12 +2,13 @@ const Forumpost = require("../models/forumModel");
 
 module.exports = class ForumService {
   static async createForumpost(body) {
-    if (body.title && body.text) {
+    if (body.title && body.text && body.category) {
       const data = body;
 
       const forumpost = new Forumpost({
         title: data.title,
         text: data.text,
+        category: data.category,
       });
 
       await forumpost.save();
@@ -34,6 +35,8 @@ module.exports = class ForumService {
         }
         if (body.title) {
           forumpost.title = body.title;
+        } if(body.category) {
+          forumpost.category = body.category;
         }
         await forumpost.save();
       }

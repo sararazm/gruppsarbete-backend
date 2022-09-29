@@ -1,7 +1,9 @@
 const { MongoClient } = require("mongodb");
-const request = require("supertest");
-const { User, signingUp } = require("../models/userModel");
-const app = require("../app");
+
+import { User, signingUp } from ("../models/userModel");
+import {app} from ("../app");
+
+
 
 describe("insert user", () => {
   let db;

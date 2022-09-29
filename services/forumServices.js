@@ -2,13 +2,15 @@ const Forumpost = require("../models/forumModel");
 
 const createForumPostLogic = (forumpost) => {
   const user_id = user._id;
-  const { title, text } = forumpost;
+  const { title, text, category } = forumpost;
 
   if (!title) {
     return "You can not leave the titlefield empty";
   }
   if (!text) {
     return "You can not leave the textfield empty";
+  } if(!category) {
+    return "You need to choose a category"
   }
 
   try {
