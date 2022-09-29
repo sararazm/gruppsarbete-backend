@@ -3,6 +3,7 @@ const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 
 const {
+  //createUserLogic,
   oneUserLogic,
   deleteUserLogic,
   allUsersLogic,
@@ -47,6 +48,7 @@ const userSignIn = async (req, res) => {
   }
 };
 router.post("/signin", userSignIn);
+
 
 //GET ALL USERS - SWAGGER
 const allUsers = async (req, res) => {
@@ -116,6 +118,8 @@ router.delete("/:id", deleteUser);
 
 module.exports = {
   userSignUp,
+  userSignIn,
+  //createUser,
   allUsers,
   oneUser,
   updateUser,

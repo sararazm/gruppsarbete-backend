@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema(
 // Static method to sign up user
 userSchema.statics.signingUp = async function (_id, email, password) {
   //if the user leaves either email, username or password empty we throw an Error
+
   if (!email) {
     throw Error("You can not leave email empty");
   }
@@ -29,20 +30,20 @@ userSchema.statics.signingUp = async function (_id, email, password) {
     throw Error("You can not leave password empty");
   }
   /*
-         we check to see if the email already exists by using the method findOne
-        If the email is already registered, we throw an Error
+        we check to see if theemail  already exists by using the method findOne
+        If the email is already registered we throw an Error
       */
   const emailExists = await this.findOne({ email });
   const idExists = await this.findOne({ _id });
-  //const usernameExists = await this.findOne({ username });
+ 
 
   if (emailExists) {
     throw Error("The email is already registered");
   }
+
   if(idExists) {
     throw Error("The ID is already taken");
   }
-
 
   // we take the password and salt it for 10 rounds and save it in the variable called hashed
   const salted = await bcrypt.genSalt(10);

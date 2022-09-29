@@ -59,7 +59,9 @@ const allUsersLogic = () => {
 };
 
 //get one user logic
+
 const oneUserLogic = async (_id) => {
+
   try {
     const oneUser = await User.findById(_id);
 
@@ -74,10 +76,7 @@ const oneUserLogic = async (_id) => {
 
 // update one user logic
 const updateUserLogic = (id, body) => {
-  /*if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "User with given ID does not exist" });
-  }
-*/
+ 
   try {
     const user = User.findOneAndUpdate({ _id: id }, { ...body }, { new: true} );
 
