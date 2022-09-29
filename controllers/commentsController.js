@@ -16,7 +16,7 @@ const createComment = async (req, res) => {
       .status(200)
       .json({ message: "New comment to forumpost has been added" });
   } else {
-    res.status(400).json({error: "Could not save comment" });
+    res.status(400).json({ error: "Could not save comment" });
   }
 };
 router.post("/newcomment", createComment);
@@ -39,11 +39,9 @@ const oneComment = async (req, res) => {
   const comment = await oneCommentLogic(id);
 
   if (comment._id) {
-    res
-      .status(200)
-      .json({
-        message: `Found this comment: ${comment.title} under the Forumpost with title: ${forumpost.title} `,
-      });
+    res.status(200).json({
+      message: `Found this comment: ${comment.title} under the Forumpost with title: ${forumpost.title} `,
+    });
   } else {
     res.status(400).json(error);
   }
@@ -51,40 +49,46 @@ const oneComment = async (req, res) => {
 router.get("/:id", oneComment);
 
 // Update one commentby ID
-const updateComment= async(req,res) => {
-    const { id } = req.params;
-    const comment = await updateCommentLogic(id);
+const updateComment = async (req, res) => {
+  const { id } = req.params;
+  const comment = await updateCommentLogic(id);
 
-    if(comment.id) {
-        res.status(200).json({ message: "Comment was successfully updated"});
-    } if(!comment.id) {
-        res.status(400).json({ error: "Could not find a commetn with matching ID to update"})
-    } else {
-        res.status(500).json({erro: "Oops something went wrong"})
-    }
-}
-router.patch("/:id", updateComment)
+  if (comment.id) {
+    res.status(200).json({ message: "Comment was successfully updated" });
+  }
+  if (!comment.id) {
+    res
+      .status(400)
+      .json({ error: "Could not find a commetn with matching ID to update" });
+  } else {
+    res.status(500).json({ erro: "Oops something went wrong" });
+  }
+};
+router.patch("/:id", updateComment);
 
 // Delete one Comment by ID
-const deleteComment = async (req,res)=> {
-    const { id } = req.params;
-    const comment = await deleteCommentLogic(id);
+const deleteComment = async (req, res) => {
+  const { id } = req.params;
+  const comment = await deleteCommentLogic(id);
 
-    if(comment.id) {
-        res.status(201).json({ message: "Comment was successfully deleted"})
-    } if(!comment.id) {
-        res.status(400).json({ error: " Could not find a comment with matching ID to delete"})
-    } else {
-        res.status(500).json({ error: "Oops something went wrong"})
-    } 
-}
-router.delete("/:id", deleteComment)
+  if (comment.id) {
+    res.status(201).json({ message: "Comment was successfully deleted" });
+  }
+  if (!comment.id) {
+    res
+      .status(400)
+      .json({ error: " Could not find a comment with matching ID to delete" });
+  } else {
+    res.status(500).json({ error: "Oops something went wrong" });
+  }
+};
+router.delete("/:id", deleteComment);
 
 module.exports = {
-    createComment,
-    allComments,
-    oneComment,
-    updateComment,
-    deleteComment,
-    router
+  createComment,
+  allComments,
+  oneComment,
+  updateComment,
+  deleteComment,
+  router,
 };

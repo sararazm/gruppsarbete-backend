@@ -1,7 +1,6 @@
 const express = require("express");
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 
 const {
   //createUserLogic,
@@ -18,10 +17,10 @@ const createToken = (_id) => {
 
 //CREATE USER
 const userSignUp = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, _id } = req.body;
 
   try {
-    const user = await User.signingUp(email, password);
+    const user = await User.signingUp(_id, email, password);
 
     const token = createToken(user._id);
     res.status(200).json({ email, token });
@@ -50,22 +49,6 @@ const userSignIn = async (req, res) => {
 };
 router.post("/signin", userSignIn);
 
-/*
-//CREATE A NEW USER THRU SWAGGER
-const newUser = async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const createUser = await User.createUserLogic(email, password, req.body);
-
-    const token = createToken(createUser._id);
-    res.status(200).json({ email, token });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-router.post("/", newUser);
-*/
 
 //GET ALL USERS - SWAGGER
 const allUsers = async (req, res) => {
@@ -101,7 +84,7 @@ const updateUser = async (req, res) => {
     const user = await updateUserLogic(id, req.body);
 
     if (id) {
-      return res.status(200).json(`User with id: ${user.id} updated`);
+      return res.status(200).json(user);
     } else {
       return res
         .status(400)

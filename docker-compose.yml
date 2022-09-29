@@ -10,12 +10,12 @@ services:
       - MONGODB_PASS="pass"
     volumes:
       - "mongodb-data:/data/db"
-  
+
   mongoclient:
-     container_name: mongoclient
-     ports:
-       - "4000:3000"
-     image: mongoclient/mongoclient:latest
+    container_name: mongoclient
+    ports:
+      - "4000:3000"
+    image: mongoclient/mongoclient:latest
 
 volumes:
   mongodb-data: {}

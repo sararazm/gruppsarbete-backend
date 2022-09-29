@@ -7,22 +7,7 @@ const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "2d" });
 };
 // create user logic
-
 const createUserLogic = () => {};
-/*
-const createUserLogic = (id, email, password, body) => {
-  try {
-    const createUser = User.create({ id, email, password }, { ...body });
-
-    if (!createUser) {
-      return error;
-    }
-    return createUser;
-  } catch (error) {
-    return error;
-  }
-};
-*/
 
 /*sign in user logic
 const userSignInLogic= async (email, password)=> {
@@ -74,9 +59,11 @@ const allUsersLogic = () => {
 };
 
 //get one user logic
-const oneUserLogic = async (id) => {
+
+const oneUserLogic = async (_id) => {
+
   try {
-    const oneUser = await User.findById(id);
+    const oneUser = await User.findById(_id);
 
     if (!oneUser) {
       return error;
@@ -89,12 +76,9 @@ const oneUserLogic = async (id) => {
 
 // update one user logic
 const updateUserLogic = (id, body) => {
-  /*if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "User with given ID does not exist" });
-  }
-*/
+ 
   try {
-    const user = User.findOneAndUpdate({ _id: id }, { ...body });
+    const user = User.findOneAndUpdate({ _id: id }, { ...body }, { new: true} );
 
     if (!user) {
       return error;

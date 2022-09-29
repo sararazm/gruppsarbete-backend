@@ -1,4 +1,3 @@
-
 /*
 * HÄR MÅSTE VI SKAPA EN METOD SOM 
 * HÄMTAR X ANTAL RANDOM FRÅGOR DÅ ETT SPEL STARTAS
@@ -14,4 +13,3 @@ const getGameQuestions = async (req,res) => {
   }
 }
 */
-

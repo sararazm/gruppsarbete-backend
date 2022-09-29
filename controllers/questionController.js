@@ -1,5 +1,5 @@
 const express = require("express");
-//const Question = require("../models/questionModel");
+
 const {
   createQuestionLogic,
   oneQuestionLogic,
@@ -12,7 +12,6 @@ const router = express.Router();
 // CREATE QUESTION
 const createQuestion = async (req, res) => {
   const newQuestion = await createQuestionLogic(req.body);
-
 
   if (newQuestion._id) {
     return res.status(200).json(newQuestion);
@@ -54,7 +53,9 @@ const updateQuestion = async (req, res) => {
 
   const question = await updateQuestionLogic(id, req.body);
   if (id) {
-    return res.status(200).json({message: `Question with id:  ${question.id} was successfully updated`});
+    return res.status(200).json({
+      message: `Question with id:  ${question.id} was successfully updated`,
+    });
   } else {
     return res.status(400).json({ error: "Could not update question" });
   }

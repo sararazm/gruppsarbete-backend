@@ -1,12 +1,7 @@
 const mongoose = require("mongoose");
 
-const Score = require("../models/scoreModel");;
+const Score = require("../models/scoreModel");
 
-const newScoreLogic = () => {
-    
-};
+const newScoreLogic = () => {};
 
-
-const allScoresLogic = () => {
-  
-}
+const allScoresLogic = () => {};

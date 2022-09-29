@@ -7,13 +7,11 @@ const { router: forumRoutes } = require("./controllers/forumpostController");
 const v1forumRoutes = require("./controllers/v1forumpostController");
 const { router: commentsRoutes } = require("./controllers/commentsController");
 const cors = require("cors");
-//const path =require('path');
 
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 
 const app = express();
-
 dotenv.config();
 app.use(cors());
 //app.use(express.static(path.join(__dirname + 'build')))
@@ -35,6 +33,8 @@ const port = process.env.PORT || 8080;
 //database-connection
 mongoose
   .connect(process.env.MONGO_URI_CLOUD)
+  .then(() => console.log("Connected to database"))
+  .catch((err) => console.log(err))
   .then(() => {
     app.listen(port, () => {
       console.log("Server listening on port:", process.env.PORT);
