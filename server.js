@@ -3,7 +3,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { router: userRoutes } = require("./controllers/userController");
 const { router: quizRoutes } = require("./controllers/questionController");
-const { router: forumRoutes } = require("./controllers/forumpostController");
 const v1forumRoutes = require("./controllers/v1forumpostController");
 const { router: commentsRoutes } = require("./controllers/commentsController");
 const cors = require("cors");
