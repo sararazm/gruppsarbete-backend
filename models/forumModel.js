@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const forumSchema = new mongoose.Schema(
   {
+    _id: {
+      type: String,
+      unique: true
+    },
     title: {
       type: String,
       required: true,

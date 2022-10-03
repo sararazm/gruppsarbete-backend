@@ -2,10 +2,11 @@ const Forumpost = require("../models/forumModel");
 
 module.exports = class ForumService {
   static async createForumpost(body) {
-    if (body.title && body.text && body.category) {
+    if (body._id && body.title && body.text && body.category) {
       const data = body;
 
       const forumpost = new Forumpost({
+        _id: data._id,
         title: data.title,
         text: data.text,
         category: data.category,
@@ -26,7 +27,7 @@ module.exports = class ForumService {
     return Forumpost.findOne({ _id: id });
   }
 
-  static async updateForumpost(id, body) {
+  static async updateForumpost(_id, body) {
     try {
       const forumpost = await Forumpost.findOne({ _id: id });
       if (forumpost) {
@@ -48,7 +49,7 @@ module.exports = class ForumService {
 
   static async deleteForumpost(id) {
     try {
-      await Forumpost.findByIdAndDelete(id);
+      await Forumpost.findByIdAndDelete({_id: id});
       return { status: 204 };
     } catch (error) {
       return { error: "Forumpost could not be found" };
